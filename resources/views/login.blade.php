@@ -10,7 +10,6 @@
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
-
 <body>
     <div id="auth">
         <div class="container">
@@ -23,11 +22,12 @@
                                 <h3>Masuk</h3>
                                 <p>Masuk untun mengakses dashboard</p>
                             </div>
-                            <form action="/banner">
+                            <form action="{{ route('user.login') }}" method="POST">
+                                {{ csrf_field() }}
                                 <div class="form-group position-relative has-icon-left">
-                                    <label for="username">Username</label>
+                                    <label for="username">Email</label>
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" id="username">
+                                        <input type="email" class="form-control" id="email" name="email">
                                         <div class="form-control-icon">
                                             <i data-feather="user"></i>
                                         </div>
@@ -38,7 +38,7 @@
                                         <label for="password">Password</label>
                                     </div>
                                     <div class="position-relative">
-                                        <input type="password" class="form-control" id="password">
+                                        <input type="password" class="form-control" id="password" name="password">
                                         <div class="form-control-icon">
                                             <i data-feather="lock"></i>
                                         </div>

@@ -24,41 +24,35 @@
                                 <h3>Daftar</h3>
                                 <p>Daftar untuk mengakses Dashboard</p>
                             </div>
-                            <form action="auth-login.html">
+                            <form action="{{ route('user.register') }}" method="POST">
+                                {{csrf_field()}}
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="first-name-column">First Name</label>
+                                            <label for="first-name-column">Nama</label>
                                             <input type="text" id="first-name-column" class="form-control"
-                                                name="fname-column">
+                                                name="name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="last-name-column">Last Name</label>
-                                            <input type="text" id="last-name-column" class="form-control"
-                                                name="lname-column">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label for="username-column">Username</label>
-                                            <input type="text" id="username-column" class="form-control"
-                                                name="username-column">
+                                            <label for="last-name-column">Email</label>
+                                            <input type="email" id="last-name-column" class="form-control"
+                                                name="email">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="country-floating">Password</label>
-                                            <input type="text" id="country-floating" class="form-control"
-                                                name="country-floating">
+                                            <input type="password" id="country-floating" class="form-control"
+                                                name="password">
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Address</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                rows="4"></textarea>
+                                            <label for="country-floating">Alamat</label>
+                                            <input type="text" id="country-floating" class="form-control"
+                                                name="address">
                                         </div>
                                     </div>
                                 </diV>

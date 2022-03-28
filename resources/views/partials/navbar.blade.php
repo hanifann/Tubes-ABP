@@ -13,11 +13,11 @@
                     <div class="avatar me-1">
                         <img src="assets/images/avatar/avatar-s-1.png" alt="" srcset="">
                     </div>
-                    <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div>
+                    <div class="d-none d-md-block d-lg-inline-block">Hi, {{ session('name') }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                   
-                    <a class="dropdown-item" href="auth-login.html"><i data-feather="log-out"></i> Logout</a>
+                    <a class="dropdown-item" href="{{ route('user.logout') }}"><i data-feather="log-out"></i> Logout</a>
                 </div>
             </li>
         </ul>
