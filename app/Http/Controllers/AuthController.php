@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function index()
     {
         if(session()->has('token')){
-            return view('banner');
+            return redirect()->action([BannerController::class, 'index']);
         } else {
             return view('login');
         }
@@ -27,11 +27,9 @@ class AuthController extends Controller
         if($response->successful()){
             session(['token' => $response->collect()['token']]);
             $this->getUser();
-            return redirect()->action([BannerController::class, 'index']);
+            return redirect()->action([AuthController::class, 'index']);
         } else {
-            return redirect()->action([AuthController::class, 'index'], [
-                'failed' => true
-            ]);
+            return redirect('/')->withErrors('wrong username or password');
         }
     }
 

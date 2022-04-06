@@ -46,10 +46,6 @@
                                 </div>
 
                                 <div class='form-check clearfix my-4'>
-                                    <div class="checkbox float-start">
-                                        <input type="checkbox" id="checkbox1" class='form-check-input'>
-                                        <label for="checkbox1">Remember me</label>
-                                    </div>
                                     <div class="float-end">
                                         <a href="/register">Don't have an account?</a>
                                     </div>
@@ -58,6 +54,18 @@
                                     <button class="btn btn-primary float-end">Login</button>
                                 </div>
                             </form>
+                            @if (Session::has('success'))
+                                <div class="alert alert-success alert-dismissible fade show mt-4">
+                                    {{ Session::get('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show mt-4">
+                                    {{ $errors->first() }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

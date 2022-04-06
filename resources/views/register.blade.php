@@ -56,11 +56,23 @@
                                         </div>
                                     </div>
                                 </diV>
-                                <a href="/login">Have an account? Login</a>
+                                <a href="/">Have an account? Login</a>
                                 <div class="clearfix">
                                     <button class="btn btn-primary float-end">Daftar</button>
                                 </div>
                             </form>
+                            @if (Session::has('success'))
+                                <div class="alert alert-success alert-dismissible fade show mt-4">
+                                    {{ Session::get('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show mt-4">
+                                    {{ $errors->first() }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

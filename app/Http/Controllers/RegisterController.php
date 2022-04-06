@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+
 
 class RegisterController extends Controller
 {
@@ -24,9 +24,9 @@ class RegisterController extends Controller
         ]);
 
         if($response->successful()){
-            return redirect()->action([RegisterController::class, 'index']);
+            return redirect('register')->with('success', 'Akun berhasil dibuat silahkan login');
         } else {
-            Log::info('failed');
+            return redirect('register')->withErrors($response['message']);
         }
     }
 }

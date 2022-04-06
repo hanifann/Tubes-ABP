@@ -10,7 +10,7 @@ class CheckToken
     {
         if (!$request->session()->exists('token')) {
             // user value cannot be found in session
-            return route('error.403');
+            return redirect('/403');
         }
 
         return $next($request);

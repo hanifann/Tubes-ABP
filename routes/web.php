@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\RecomendationController;
+use App\Http\Controllers\TravelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,18 +33,19 @@ Route::get('/403', [ErrorController::class, 'forbidden'])->name('error.403');
 
 Route::group(['middleware' => ['token']], function() {
     Route::get('/banner', [BannerController::class, 'index']);
+    Route::post('/banner', [BannerController::class, 'postBanner'])->name('postBanner');
+    Route::put('/banner', [BannerController::class, 'updateBanner'])->name('updateBanner');
+    Route::delete('/banner', [BannerController::class, 'deleteBanner'])->name('deleteBanner');
 
-    Route::get('/artikel', function () {
-        return view('artikel', [
-            "title" => "artikel"
-        ]);
-    });
+    Route::get('/artikel', [RecomendationController::class, 'index']);
+    Route::post('/artikel', [RecomendationController::class, 'postRecomendation'])->name('postArtikel');
+    Route::put('/artikel', [RecomendationController::class, 'updateRecomendation'])->name('updateArtikel');
+    Route::delete('/artikel', [RecomendationController::class, 'deleteRecomendation'])->name('deleteArtikel');
 
-    Route::get('/travelling', function () {
-        return view('travelling', [
-            "title" => "travelling"
-        ]);
-    });
+    Route::get('/travelling', [TravelController::class, 'index']);
+    Route::post('/travelling', [TravelController::class, 'postTravel'])->name('postTravel');
+    Route::put('/travelling', [TravelController::class, 'updateTravel'])->name('updateTravel');
+    Route::delete('/travelling', [TravelController::class, 'deleteTravel'])->name('deleteTravel');
 
 });
 
