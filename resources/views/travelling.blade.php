@@ -29,13 +29,19 @@
                 @php
                     $date1=date_create(date('Y-m-d', strtotime($item['startDate'])));
                     $date2=date_create(date('Y-m-d', strtotime($item['endDate'])));
-                    $diff=date_diff($date1,$date2)->format('%d');
+                    $diff_date=date_diff($date1,$date2)->format('%d');
+                    $diff_month=date_diff($date1,$date2)->format('%m');
+
                 @endphp
                 <tr>
                     <td>{{ Str::limit($item['title'], 20, '...') }}</td>
                     <td>Rp. {{ $item['price'] }}</td>
                     <td>{{ Str::limit($item['description'], 20, '...') }}</td>
-                    <td>{{ $diff }} hari</td>
+                    @if ($diff_month != 0)
+                    <td>{{ $diff_month }} Bulan {{ $diff_date }} hari</td>
+                    @else
+                        <td>{{ $diff_date }} hari</td>
+                    @endif
                     <td>{{ $item['lodging'] }}</td>
                     <td>{{ $item['transportation'] }}</td>
                     <td>{{ $item['image'] }}</td>
@@ -250,11 +256,11 @@
                                               <div class="input-group input-daterange">
                                                   <input type="text" class="form-control"
                                                       aria-label="Amount (to the nearest dollar)"
-                                                      placeholder="Addon on both side" name="start">
+                                                      placeholder="Tanggal mulai" name="start">
                                                   <span class="input-group-text">sampai</span>
                                                   <input type="text" class="form-control" name="end"
                                                   aria-label="Amount (to the nearest dollar)"
-                                                  placeholder="Addon on both side">
+                                                  placeholder="Tanggal selesai">
                                               </div>
                                           </div>
                                           <div class="col-md-6 col-12">
