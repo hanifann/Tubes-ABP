@@ -3,10 +3,12 @@
 <div class="card">
     <div class="card-body">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" data-bs-toggle="modal" data-bs-target="#createTravel" class="btn icon icon-right btn-primary btn-lg style="font-size: 14px">
-          Tambah Travel
-          <i data-feather="plus-circle"></i>
-        </button>
+        @if (session('user')['role'] == 'admin')
+            <button type="button" data-bs-toggle="modal" data-bs-target="#createTravel" class="btn icon icon-right btn-primary btn-lg style="font-size: 14px">
+                Tambah Travel
+                <i data-feather="plus-circle"></i>
+          </button>
+        @endif
       </div>
         <table class='table table-striped' id="table1">
             <thead>
@@ -18,7 +20,9 @@
                     <th>Penginapan</th>
                     <th>Transportasi</th>
                     <th>Gambar</th>
-                    <th>Aksi</th>
+                    @if (session('user')['role'] == 'admin')
+                        <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -45,14 +49,16 @@
                     <td>{{ $item['lodging'] }}</td>
                     <td>{{ $item['transportation'] }}</td>
                     <td>{{ $item['image'] }}</td>
-                    <td>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#updateTravel" id="edit" data-index="{{ $i }}" data-id="{{ $item['id'] }}">
-                        <img src="assets/images/edit.svg" alt="" srcset="" width="16" height="16">
-                    </a>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" id="delete" data-id="{{ $item['id']}}">
-                        <img src="assets/images/trash.svg" alt="" srcset="" width="16" height="16">
-                    </a>
-                    </td>
+                    @if (session('user')['role'] == 'admin')
+                        <td>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#updateTravel" id="edit" data-index="{{ $i }}" data-id="{{ $item['id'] }}">
+                                <img src="assets/images/edit.svg" alt="" srcset="" width="16" height="16">
+                            </a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" id="delete" data-id="{{ $item['id']}}">
+                                <img src="assets/images/trash.svg" alt="" srcset="" width="16" height="16">
+                            </a>
+                        </td>
+                    @endif
                 </tr>
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -333,7 +339,7 @@ $('body').on('click', '#edit', function (event) {
     $('#start').val(data['startDate']);
     $('#end').val(data['endDate']);
     $('#id').val(id);
-    $('#outputu').attr('src', 'http://localhost:8080/storage/'+data['image']);
+    $('#outputu').attr('src', data['image']);
 });
 
 });

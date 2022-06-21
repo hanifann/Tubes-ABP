@@ -20,7 +20,7 @@ class TravelController extends Controller
     public function getTravel()
     {
         $token = session('token');
-        $response = $response = Http::withToken($token)->get('http://127.0.0.1:8080/api/travel');
+        $response = $response = Http::withToken($token)->get(env('BASE_URL').'/api/travel');
         return json_decode($response, true);
     }
 
@@ -31,12 +31,12 @@ class TravelController extends Controller
         $file = $request->file('image');
         $name = $file->getClientOriginalName();
 
-        $response = Http::withToken($token)->acceptJson()->attach('image', file_get_contents($file), $name)->post('http://127.0.0.1:8080/api/travel', [
+        $response = Http::withToken($token)->acceptJson()->attach('image', file_get_contents($file), $name)->post(env('BASE_URL').'/api/travel', [
             'title' => $request->judul,
             'price' => $request->harga,
             'description' => $request->deskripsi,
-            'startDate' => date('y-m-d', strtotime($request->start)),
-            'endDate' => date('y-m-d', strtotime($request->end)),
+            'startDate' => date('Y-m-d', strtotime($request->start)),
+            'endDate' => date('Y-m-d', strtotime($request->end)),
             'lodging' => $request->penginapan,
             'transportation' => $request->transportasi,
             'image' => $request->image,
@@ -52,13 +52,12 @@ class TravelController extends Controller
     public function updateTravel(Request $request)
     {
         $token = session('token');
-
-        $response = Http::withToken($token)->put('http://127.0.0.1:8080/api/travel/'.$request->id, [
+        $response = Http::withToken($token)->put(env('BASE_URL').'/api/travel/'.$request->id, [
             'title' => $request->judul,
             'price' => $request->harga,
             'description' => $request->deskripsi,
-            'startDate' => date('y-m-d', strtotime($request->start)),
-            'endDate' => date('y-m-d', strtotime($request->end)),
+            'startDate' => date('Y-m-d', strtotime($request->start)),
+            'endDate' => date('Y-m-d', strtotime($request->end)),
             'lodging' => $request->penginapan,
             'transportation' => $request->transportasi,
         ]);
@@ -73,7 +72,7 @@ class TravelController extends Controller
     public function deleteTravel(Request $request)
     {
         $token = session('token');
-        $response = Http::withToken($token)->delete('http://127.0.0.1:8080/api/travel/'.$request->id);
+        $response = Http::withToken($token)->delete(env('BASE_URL').'/api/travel/'.$request->id);
 
         if($response->successful()){
             return redirect()->back()->with('success', 'Travel berhasil dihapus');

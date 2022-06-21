@@ -3,10 +3,13 @@
 <div class="card">
     <div class="card-body">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" data-bs-toggle="modal" data-bs-target="#createArtikel" class="btn icon icon-right btn-primary btn-lg style="font-size: 14px">
-          Tambah Artikel
-          <i data-feather="plus-circle"></i>
-        </button>
+        <!-- oengecekan user role -->
+        @if (session('user')['role'] == 'admin')
+            <button type="button" data-bs-toggle="modal" data-bs-target="#createArtikel" class="btn icon icon-right btn-primary btn-lg style="font-size: 14px">
+                Tambah Artikel
+                <i data-feather="plus-circle"></i>
+          </button>
+        @endif
       </div>
         <table class='table table-striped' id="table1">
             <thead>
@@ -16,7 +19,10 @@
                     <th>Pembuat</th>
                     <th>Gambar</th>
                     <th>Update</th>
-                    <th>Aksi</th>
+                    <!-- oengecekan user role -->
+                    @if (session('user')['role'] == 'admin')
+                        <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -26,18 +32,21 @@
                 @foreach ($artikel as $item)
                 <tr>
                     <td>{{ Str::limit($item['title'], 20, '...') }}</td>
-                    <td>{{ $item['content'] }}</td>
+                    <td>{{ Str::limit($item['content'], 100, '...') }}</td>
                     <td>{{ $item['author'] }}</td>
                     <td>{{ Str::limit($item['image'], 20, '...') }}</td>
                     <td>{{ date('d-m-y', strtotime($item['updated_at'])) }}</td>
-                    <td>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#updateArtikel" id="edit" data-index="{{ $i }}" data-id="{{ $item['id'] }}">
-                        <img src="assets/images/edit.svg" alt="" srcset="" width="16" height="16">
-                    </a>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" id="delete" data-id="{{ $item['id']}}">
-                        <img src="assets/images/trash.svg" alt="" srcset="" width="16" height="16">
-                    </a>
-                    </td>
+                    <!-- oengecekan user role -->
+                    @if (session('user')['role'] == 'admin')
+                        <td>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#updateArtikel" id="edit" data-index="{{ $i }}" data-id="{{ $item['id'] }}">
+                                <img src="assets/images/edit.svg" alt="" srcset="" width="16" height="16">
+                            </a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" id="delete" data-id="{{ $item['id']}}">
+                                <img src="assets/images/trash.svg" alt="" srcset="" width="16" height="16">
+                            </a>
+                        </td>
+                    @endif
                 </tr>
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -255,7 +264,7 @@ $('body').on('click', '#edit', function (event) {
     $('#judulu').val(data['title']);
     $('#kontenu').val(data['content']);
     $('#id').val(id);
-    $('#outputu').attr('src', 'http://localhost:8080/storage/'+data['image']);
+    $('#outputu').attr('src', data['image']);
 });
 
 });

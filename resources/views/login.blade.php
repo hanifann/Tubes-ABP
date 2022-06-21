@@ -27,7 +27,7 @@
                                 <div class="form-group position-relative has-icon-left">
                                     <label for="username">Email</label>
                                     <div class="position-relative">
-                                        <input type="email" class="form-control" id="email" name="email">
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                                         <div class="form-control-icon">
                                             <i data-feather="user"></i>
                                         </div>

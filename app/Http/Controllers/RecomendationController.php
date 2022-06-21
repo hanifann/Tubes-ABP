@@ -20,7 +20,7 @@ class RecomendationController extends Controller
     public function getRecomendation()
     {
         $token = session('token');
-        $response = $response = Http::withToken($token)->get('http://127.0.0.1:8080/api/recomendation');
+        $response = $response = Http::withToken($token)->get(env('BASE_URL').'/api/recomendation');
         return json_decode($response, true);
     }
 
@@ -31,7 +31,7 @@ class RecomendationController extends Controller
         $file = $request->file('image');
         $name = $file->getClientOriginalName();
 
-        $response = Http::withToken($token)->acceptJson()->attach('image', file_get_contents($file), $name)->post('http://127.0.0.1:8080/api/recomendation', [
+        $response = Http::withToken($token)->acceptJson()->attach('image', file_get_contents($file), $name)->post(env('BASE_URL').'/api/recomendation', [
             'title' => $request->judul,
             'content' => $request->konten,
             'author' => $request->pembuat,
@@ -48,7 +48,7 @@ class RecomendationController extends Controller
     {
         $token = session('token');
         
-        $response = Http::withToken($token)->put('http://127.0.0.1:8080/api/recomendation/'.$request->id, [
+        $response = Http::withToken($token)->put(env('BASE_URL').'/api/recomendation/'.$request->id, [
             'title' => $request->judul,
             'content' => $request->konten,
         ]);
@@ -63,7 +63,7 @@ class RecomendationController extends Controller
     public function deleteRecomendation(Request $request)
     {
         $token = session('token');
-        $response = Http::withToken($token)->delete('http://127.0.0.1:8080/api/recomendation/'.$request->id);
+        $response = Http::withToken($token)->delete(env('BASE_URL').'/api/recomendation/'.$request->id);
 
         if($response->successful()){
             return redirect()->back()->with('success', 'Recomendation berhasil dihapus');

@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $response = Http::post('http://127.0.0.1:8080/api/login', [
+        $response = Http::post(env('BASE_URL').'/api/login', [
             'password' => $request->password,
             'email' => $request->email,
         ]);
@@ -29,7 +29,7 @@ class AuthController extends Controller
             $this->getUser();
             return redirect()->action([AuthController::class, 'index']);
         } else {
-            return redirect('/')->withErrors('wrong username or password');
+            return redirect('/')->withInput()->withErrors($response['message']);
         }
     }
 
@@ -42,7 +42,8 @@ class AuthController extends Controller
     public function getUser()
     {   
         $token = session('token');
-        $response = Http::withToken($token)->get('http://127.0.0.1:8080/api/user');
+        $response = Http::withToken($token)->get(env('BASE_URL').'/api/user');
+        session(['user' => $response->collect()]);
         session(['name' => $response->collect()['name']]);
     }
 }
